@@ -1,5 +1,19 @@
 # Compose for Agents Demos
 
+## Quick Start
+
+**New to this project?** Get started quickly:
+
+```bash
+# Check prerequisites
+./install.sh
+
+# Run a demo (e.g., agno)
+./run.sh agno
+```
+
+📖 See [INSTALL.md](./INSTALL.md) for detailed installation and usage instructions.
+
 ## Prerequisites
 
 + **[Docker Desktop] 4.43.0+ or [Docker Engine]** installed.
