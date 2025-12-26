@@ -80,12 +80,12 @@ If you prefer to set up manually, follow these steps:
 ### Prerequisites
 
 1. **Install Docker Desktop** (4.43.0+) or **Docker Engine**
-   - Download from: <https://www.docker.com/products/docker-desktop/>
-   - For Linux users, also install Docker Compose 2.38.1+
+   + Download from: <https://www.docker.com/products/docker-desktop/>
+   + For Linux users, also install Docker Compose 2.38.1+
 
 2. **GPU Support** (optional but recommended)
-   - For local model execution
-   - Or use [Docker Offload](https://www.docker.com/products/docker-offload/)
+   + For local model execution
+   + Or use [Docker Offload](https://www.docker.com/products/docker-offload/)
 
 ### Running a Demo Manually
 
