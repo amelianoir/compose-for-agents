@@ -26,12 +26,11 @@ show_usage() {
     echo ""
     echo "Options:"
     echo "  --openai    Use OpenAI models (requires secret.openai-api-key file)"
-    echo "  --build     Force rebuild of containers"
     echo "  --detach    Run in detached mode"
     echo ""
     echo "Examples:"
     echo "  ./run.sh agno"
-    echo "  ./run.sh vercel --build"
+    echo "  ./run.sh vercel --detach"
     echo "  ./run.sh adk --openai"
     echo ""
     echo "If no demo is specified, the script will show this help message."
@@ -91,17 +90,12 @@ shift
 
 # Parse options
 USE_OPENAI=false
-FORCE_BUILD=false
 DETACHED=false
 
 while [[ $# -gt 0 ]]; do
     case $1 in
         --openai)
             USE_OPENAI=true
-            shift
-            ;;
-        --build)
-            FORCE_BUILD=true
             shift
             ;;
         --detach|-d)
@@ -129,7 +123,7 @@ check_mcp_config "$DEMO"
 # Change to demo directory
 cd "./$DEMO"
 
-# Prepare compose command
+# Prepare compose command (--build is the default per README)
 COMPOSE_CMD="docker compose -f compose.yaml"
 
 # Add OpenAI compose file if requested
@@ -154,12 +148,8 @@ if [ "$USE_OPENAI" = true ]; then
     fi
 fi
 
-# Add build flag if requested
-if [ "$FORCE_BUILD" = true ]; then
-    COMPOSE_CMD="$COMPOSE_CMD up --build"
-else
-    COMPOSE_CMD="$COMPOSE_CMD up --build"
-fi
+# Always use --build as recommended in README
+COMPOSE_CMD="$COMPOSE_CMD up --build"
 
 # Add detached flag if requested
 if [ "$DETACHED" = true ]; then
@@ -180,6 +170,6 @@ if [ "$DETACHED" = true ]; then
     echo ""
     echo -e "${GREEN}✓ Demo is running in detached mode${NC}"
     echo ""
-    echo "To view logs: cd ./$DEMO && docker compose logs -f"
-    echo "To stop: cd ./$DEMO && docker compose down"
+    echo "To view logs: docker compose logs -f"
+    echo "To stop: docker compose down"
 fi

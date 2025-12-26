@@ -9,6 +9,10 @@ This guide will help you install prerequisites and run the Compose for Agents de
 Run the installation check script to verify your system meets the requirements:
 
 ```bash
+# Make sure scripts are executable (already set in repository)
+chmod +x install.sh run.sh
+
+# Run the installation check
 ./install.sh
 ```
 
@@ -57,8 +61,9 @@ For example:
 Available options:
 
 - `--openai` - Use OpenAI models instead of local models
-- `--build` - Force rebuild of containers
 - `--detach` or `-d` - Run in detached/background mode
+
+**Note:** The script always uses `--build` to rebuild containers as recommended in the project documentation.
 
 Examples:
 
@@ -69,8 +74,8 @@ Examples:
 # Run in background
 ./run.sh vercel --detach
 
-# Force rebuild and run
-./run.sh crew-ai --build
+# Combine options
+./run.sh crew-ai --openai --detach
 ```
 
 ## Manual Installation

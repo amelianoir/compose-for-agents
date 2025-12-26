@@ -22,7 +22,7 @@ ALL_REQUIREMENTS_MET=true
 # Check Docker
 echo "Checking Docker..."
 if command -v docker &> /dev/null; then
-    DOCKER_VERSION=$(docker --version | awk '{print $3}' | sed 's/,//')
+    DOCKER_VERSION=$(docker --version 2>/dev/null | awk '{print $3}' | sed 's/,//' || echo "unknown")
     echo -e "${GREEN}✓${NC} Docker is installed: $DOCKER_VERSION"
     
     # Check if Docker daemon is running
@@ -44,7 +44,7 @@ echo ""
 # Check Docker Compose
 echo "Checking Docker Compose..."
 if docker compose version &> /dev/null; then
-    COMPOSE_VERSION=$(docker compose version | awk '{print $4}' | sed 's/v//')
+    COMPOSE_VERSION=$(docker compose version 2>/dev/null | awk '{print $4}' | sed 's/v//' || echo "unknown")
     echo -e "${GREEN}✓${NC} Docker Compose is installed: $COMPOSE_VERSION"
 else
     echo -e "${RED}✗${NC} Docker Compose is not installed or not compatible"
