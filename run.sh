@@ -123,14 +123,14 @@ check_mcp_config "$DEMO"
 # Change to demo directory
 cd "./$DEMO"
 
-# Prepare compose command (--build is the default per README)
-COMPOSE_CMD="docker compose -f compose.yaml"
+# Prepare compose command as array (--build is the default per README)
+COMPOSE_CMD=(docker compose -f compose.yaml)
 
 # Add OpenAI compose file if requested
 if [ "$USE_OPENAI" = true ]; then
     if [[ -f "compose.openai.yaml" ]]; then
         echo -e "${GREEN}✓${NC} Using OpenAI models"
-        COMPOSE_CMD="$COMPOSE_CMD -f compose.openai.yaml"
+        COMPOSE_CMD+=(-f compose.openai.yaml)
         
         # Check for OpenAI API key
         if [[ ! -f "secret.openai-api-key" ]]; then
@@ -149,22 +149,22 @@ if [ "$USE_OPENAI" = true ]; then
 fi
 
 # Always use --build as recommended in README
-COMPOSE_CMD="$COMPOSE_CMD up --build"
+COMPOSE_CMD+=(up --build)
 
 # Add detached flag if requested
 if [ "$DETACHED" = true ]; then
-    COMPOSE_CMD="$COMPOSE_CMD -d"
+    COMPOSE_CMD+=(-d)
 fi
 
 echo ""
 echo -e "${GREEN}Starting demo: $DEMO${NC}"
-echo "Command: $COMPOSE_CMD"
+echo "Command: ${COMPOSE_CMD[*]}"
 echo ""
 echo "Press Ctrl+C to stop the demo"
 echo ""
 
 # Run docker compose
-eval "$COMPOSE_CMD"
+"${COMPOSE_CMD[@]}"
 
 if [ "$DETACHED" = true ]; then
     echo ""
